@@ -6,5 +6,6 @@ So far, I have uploaded documentation about:
 
 * [`vim`](./vim): my configuration file and instructions about how to install plugins
 * [`tmux`](./tmux): my configuration file and instructions about how to install plugins
+* [`bash`](./bash): part of my `.bashrc` file, with the `bash PS1` personalisation script 
 * [`jupyter`](.jupyter.md): instructions about how to install the extensions
 * [virtual environments](.virtual-environments.md) for Python: instructions about how to install `virtualenv` and `virtualenvwrapper` to start using virtual environments and the main commands
