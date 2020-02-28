@@ -19,3 +19,10 @@ sudo apt install build-essential cmake python-dev
 cd ~/.vim/bundle/YouCompleteMe
 python install.py
 ```
+
+# Update of `.vimrc`
+
+In order to apply the changes made to `.vimrc`, start `vim` and run:
+```
+:so ~/.vimrc
+```
