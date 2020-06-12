@@ -1,6 +1,6 @@
 # How to get LaTeX working and install packages
 
-## Full installation via download from [www.tug.org](http://www.tug.org) (
+## Full installation via download from [www.tug.org](http://www.tug.org) (recommended)
 See the prompt to change options. For instance, the default is the full installation, nearly 7 GB.
 See: http://www.tug.org/texlive/quickinstall.html 
 
