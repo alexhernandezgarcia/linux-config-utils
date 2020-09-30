@@ -39,6 +39,12 @@ By default, `install-tl` will install the packages within `/usr/local/texlive`, 
 sudo $(which tlmgr) install latexmk
 ```
 
+#### Similarly, other applications has to be executed with sudo permissions, using `which`, for example `update-sys` to update font maps:
+
+```
+sudo $(which updmap-sys) --enable Map=newfont.map
+```
+
 Otherwise, `latexmk` will install a new copy of `texlive`, probably on `/usr/share/texlive`
 
 ## Installation via the `apt` repository
