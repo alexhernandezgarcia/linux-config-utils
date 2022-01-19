@@ -27,7 +27,11 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 
 " vimtex (LaTeX)
+" See: https://wikimatze.de/vimtex-the-perfect-tool-for-working-with-tex-and-vim/
 Plugin 'lervag/vimtex'
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_complete_bib_simple = 1
+let g:tex_flavor = 'latex'
 
 " Syntastic
 Plugin 'vim-syntastic/syntastic'
@@ -38,6 +42,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 
 " Air-line
 Plugin 'vim-airline/vim-airline'
@@ -199,17 +204,26 @@ set expandtab
 " Line numbers
 set number
 
+" Make search "smartcase"-sensitive: Uppercase is sensitive; lowercase is not
+" A search can always be made case-sensitive with \C in the end
+" See: https://vim.fandom.com/wiki/Searching
+set ignorecase
+set smartcase
+
 """ Set Python column limits
-" Color column at 80 characters
+" Color column at 88 characters
 " See: http://vim.wikia.com/wiki/Automatic_word_wrapping
 " See: https://robots.thoughtbot.com/wrap-existing-text-at-80-characters-in-vim
-au BufRead,BufNewFile *.py setlocal colorcolumn=80
-au BufRead,BufNewFile *.py setlocal textwidth=79
+au BufRead,BufNewFile *.py setlocal colorcolumn=88
+au BufRead,BufNewFile *.py setlocal textwidth=87
 au BufRead,BufNewFile *.py setlocal formatoptions+=t
 
-""" Set 2-spaces indent for specific languages (HTML, YAML, etc.)
-au BufRead,BufNewFile *.html,*.yml setlocal tabstop=2
-au BufRead,BufNewFile *.html,*.yml setlocal shiftwidth=2
+""" Flag unnecessary whitespaces in Python
+" au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+""" Set 2-spaces indent for specific languages (HTML, YAML, TEX, etc.)
+au BufRead,BufNewFile *.html,*.yml,*.tex setlocal tabstop=2
+au BufRead,BufNewFile *.html,*.yml,*.tex setlocal shiftwidth=2
 
 " map gr to go-to-previous-tab
 nmap gr gT
@@ -233,6 +247,11 @@ au BufRead,BufNewFile *.tex vnoremap <silent> '# :s/^% //<cr>:noh<cr>
 " Python: set idbp breakpoint line in register i
 " See: https://blog.afoolishmanifesto.com/posts/editing-registers-in-vim-regedit
 :let @i='import ipdb; ipdb.set_trace()'
+
+" Folding
+set foldmethod=indent
+set foldlevel=4
+set nofoldenable
 
 " Delete buffer without closing split, setting previously used buffer on the split 
 :command Bq bp\|bd #
