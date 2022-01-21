@@ -21,11 +21,6 @@ Plugin 'tpope/vim-surround'
 " Command-T
 Plugin 'wincent/command-t'
 
-" snipMate
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-
 " vimtex (LaTeX)
 " See: https://wikimatze.de/vimtex-the-perfect-tool-for-working-with-tex-and-vim/
 Plugin 'lervag/vimtex'
