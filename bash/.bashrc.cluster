@@ -138,6 +138,3 @@ bind -m vi-insert '"\e[B":history-search-forward'
 # Bash history with k and j in vi-command
 bind -m vi-command '"k":history-search-backward'
 bind -m vi-command '"j":history-search-forward'
-
-# Env variables for directories
-export SCRATCH=/network/scratch/a/alex.hernandez-garcia/
