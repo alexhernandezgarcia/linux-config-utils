@@ -1,9 +1,24 @@
 # Color configuration for the terminal
 export PROMPT_COMMAND='PS1="$(python ~/.bash.config.color.py)"'
 
+# Set vim bindings in bash
+set -o vi
+set editing-mode vi
+
+# Ctrl-L clears screen in vi-insert
+bind -m vi-insert 'Control-l: clear-screen'
+
 # Bash history pressing arrows
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
+
+# Bash history pressing arrows also in vi-insert
+bind -m vi-insert '"\e[A":history-search-backward'
+bind -m vi-insert '"\e[B":history-search-forward'
+
+# Bash history with k and j in vi-command
+bind -m vi-command '"k":history-search-backward'
+bind -m vi-command '"j":history-search-forward'
 
 # virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
@@ -46,6 +61,12 @@ alias v="xclip -o"
 # Ruby Gems
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
+
+# pandocpdf: pandoc file.<ext> -o file.pdf
+pandocpdf ()
+{
+    pandoc "$1" -o $(echo $(echo "$1" | cut -d '.' -f1)".pdf")
+}
 
 # mkcdir: create directory and change directory into it
 mkcdir ()

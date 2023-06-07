@@ -3,6 +3,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" Consider migrating from Vundle to vim-plug:
+" https://github.com/junegunn/vim-plug
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -22,9 +24,9 @@ Plugin 'tpope/vim-surround'
 Plugin 'wincent/command-t'
 
 " snipMate
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+" Plugin 'MarcWeber/vim-addon-mw-utils'
+" Plugin 'tomtom/tlib_vim'
+" Plugin 'garbas/vim-snipmate'
 
 " vimtex (LaTeX)
 " See: https://wikimatze.de/vimtex-the-perfect-tool-for-working-with-tex-and-vim/
@@ -51,6 +53,24 @@ let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_nr_show = 1
+
+" Rainbow CSV
+" For better visualization of CSV files
+" See: https://github.com/mechatroner/rainbow_csv
+" Alternative: https://github.com/chrisbra/csv.vim
+Plugin 'mechatroner/rainbow_csv'
+let g:disable_rainbow_csv_autodetect = 1 " disable autodetect
+" Activate by:
+" :set ft=csv
+
+" SympylFold (Python code folding)
+" Plugin 'tmhedberg/SimpylFold'
+"
+" Black (Python linter)
+Plugin 'psf/black'
+"
+" Linediff
+Plugin 'AndrewRadev/linediff.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -190,9 +210,9 @@ inoremap <C-U> <C-G>u<C-U>
 "---------------------------------------------------------------------------------------
 
 " Colorscheme: elflord
-" colorscheme elflord
+colorscheme elflord
 " Colorscheme: slate
-colorscheme slate
+" colorscheme slate
 
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -285,7 +305,7 @@ set pastetoggle=<F3>
 " vim as a text-processor
 " See: https://www.maketecheasier.com/turn-vim-word-processor/
 " See: https://www.linux.com/learn/using-spell-checking-vim
-func! WordProcessor()
+func! TextProcessor()
   " movement changes
   map j gj
   map k gk
@@ -297,12 +317,14 @@ func! WordProcessor()
   " Disable python colorcolumn
     set colorcolumn=0
   " spelling and thesaurus
-  setlocal spell spelllang=en_us,en_gb
+"   setlocal spell spelllang=en_us,en_gb
+ setlocal spell spelllang=en_gb
+"  setlocal spell spelllang=en_us
   set thesaurus+=/home/alex/.vim/thesaurus/mthesaur.txt
   " complete+=s makes autocompletion search the thesaurus
   set complete+=s
 endfu
-com! WP call WordProcessor()
+com! TP call TextProcessor()
 
 " Block of comments in .tex documents: [Visual] Shift+S C
 " See: https://two-wrongs.com/custom-surrounding-text-with-surroundvim
