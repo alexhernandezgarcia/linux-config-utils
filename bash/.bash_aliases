@@ -113,3 +113,20 @@ vactivate()
 	 	source ~/.virtualenvs/$env/bin/activate
 	fi
 }
+
+# Crop image and add border
+# $1: input image and output image (will overwrite)
+# $2: border size in pixels
+cropnborder() {
+    convert -trim $1 $1
+    convert $1 -bordercolor White -border $2x$2 $1
+}
+
+# PDF to PNG
+# $1: input pdf
+# $2: DPI
+pdf2png() {
+    pdftoppm -png -r $2 $1 .tmp-pdf2png
+    mv .tmp-pdf2png-1.png $(basename $1 .pdf).png
+}
+
