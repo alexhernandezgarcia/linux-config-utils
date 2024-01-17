@@ -44,24 +44,62 @@ alias sq="squeue -u $USER --sort=+i"
 # Alias for disk quota
 alias quota="beegfs-ctl --cfgFile=/etc/beegfs/home.d/beegfs-client.conf --getquota --uid $USER"
 
+# pandocpdf: pandoc file.<ext> -o file.pdf
+pandocpdf ()
+{
+    pandoc "$1" -o $(echo $(echo "$1" | cut -d '.' -f1)".pdf")
+}
+
+# mkcdir: create directory and change directory into it
+mkcdir ()
+{
+    mkdir -p -- "$1" &&
+    cd -P -- "$1"
+}
+
+# rmlatex: remove *.aux, *.bbl, *.blg, *.out, *.log, *.fls, *fdb_latexmk files
+rmlatex ()
+{
+    rm $(find '.' -maxdepth 1 | grep -E "$1"".*((aux)|(bbl)|(blg)|(out)|(thm)|(synctex.gz)|(log)|(fls)|(fdb_latexmk))")
+}
+
+# compile latex: pdflatex > bibtex (x2) > pdflatex (x2)
+compilelatex ()
+{
+    pdflatex $1"tex" &&
+    bibtex $1"aux" &&
+    bibtex $1"aux" &&
+    pdflatex $1"tex" &&
+    pdflatex $1"tex"
+}
+
 # black & isort --profile black
-blisort (){
-  black $1
-  isort --profile black $1
+blisort ()
+{
+    black $1
+    isort --profile black $1
+}
+
+# flake8 with black config
+blake ()
+{
+    flake8 --max-line-length=88 --ignore=E203 $1
 }
 
 # Weather
-weather (){
+weather ()
+{
   # Get the weather forecast in Montreal: $ weather montreal
   curl wttr.in/$1
 }
 
 # Get info about SLURM job
- sshow ()                                                                                                                                                                                                                                                                                                                  {
- scontrol show job -dd $1
- }
+sshow (){
+    scontrol show job -dd $1
+}
 
-vactivate() {
+vactivate()
+{
     # list envs: $ vactivate 
     # activate env: $ vactivate myenv
 	local env
