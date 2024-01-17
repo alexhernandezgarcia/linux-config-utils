@@ -15,13 +15,14 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " YouCompleteMe
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 
 " Surround
 Plugin 'tpope/vim-surround'
 
 " Command-T
 Plugin 'wincent/command-t'
+let g:CommandTPreferredImplementation='lua'
 
 " snipMate
 " Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -67,7 +68,7 @@ let g:disable_rainbow_csv_autodetect = 1 " disable autodetect
 " Plugin 'tmhedberg/SimpylFold'
 "
 " Black (Python linter)
-Plugin 'psf/black'
+" Plugin 'psf/black'
 "
 " Linediff
 Plugin 'AndrewRadev/linediff.vim'
