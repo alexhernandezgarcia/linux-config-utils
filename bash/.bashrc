@@ -1,3 +1,6 @@
+# Shorten current directory shown in prompt
+PROMPT_DIRTRIM=1
+
 # Colors of the prompt
 # See: https://www.howtogeek.com/307701/how-to-customize-and-colorize-your-bash-prompt/
 # username@host: purple: 01;35m\
