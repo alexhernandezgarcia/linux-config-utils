@@ -44,6 +44,9 @@ alias sq="squeue -u $USER --sort=+i"
 # Alias for disk quota
 alias quota="beegfs-ctl --cfgFile=/etc/beegfs/home.d/beegfs-client.conf --getquota --uid $USER"
 
+# Alias for launching nautilus on the current directory
+alias nb="nautilus . &"
+
 # pandocpdf: pandoc file.<ext> -o file.pdf
 pandocpdf ()
 {
