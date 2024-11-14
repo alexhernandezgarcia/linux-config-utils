@@ -1,7 +1,20 @@
-## Resources
+# Git
+
+## Resources for getting started
 
 * [Open Resources for Learning and Using Git & Github](https://github.com/openlists/GitResources)
 * [Git for collaborative documentation - by cassgvp](https://cassgvp.github.io/git-for-collaborative-documentation/)
+
+## `add`
+
+* `git add -A` stages all changes
+* `git add .` stages new files and modifications, without deletions
+* `git add -u` stages modifications and deletions, without new files
+
+That is, `git add -A` is equivalent to `git add .; git add -u`.
+
+### References
+* [StackOverFlow](https://stackoverflow.com/a/572660/6194082)
 
 ## What is **HEAD**?
 **HEAD** is a reference to the last commit in the currently check-out branch. The actual reference can be seen by doing:
@@ -9,19 +22,28 @@
 cat .git/HEAD
 ```
 
-For a new repository, `git` will default point **HEAD** to the master branch
+For a new repository, `git` will by default point **HEAD** to the main branch
 
 ### References
 * [researchhubs.com](http://researchhubs.com/post/computing/git/what-is-HEAD-in-git.html)
 * [backlog.com](https://backlog.com/git-tutorial/using-branches/git-switch-branches/)
 
-## What are the tilde (~) and caret (^)?
+## What are the tilde (~) and the caret (^) symbols?
 The ~ (tilde) and ^ (caret) symbols are used to point to a position relative to a specific commit. The symbols are used together with a commit reference, typically HEAD or a commit hash.
 
-* `~<n>` refers to the n-th grandparent. For example, `HEAD~1` refers to the last commit's parent
+* The tilde symbol `rev~n` refers to the n-th parent of commit `rev`. For example, `HEAD~1` refers to the last commit's parent.
+* The caret symbol `rev^n` refers to the n-th parent of _merge commit_ `rev`. 
+* As a rule of thumb, use the tilde `~` because the caret `^` is specifically used for _merge commits_.
 
 ### References
-* [backlog.com](https://backlog.com/git-tutorial/using-branches/git-switch-branches/)
+* [StackOverFlow](https://stackoverflow.com/a/2222920/6194082)
+
+## Resolve merge conflicts using the command line
+
+The GitHub documentation about this topic is pretty good.
+
+### References
+* [Docs GitHub](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/resolving-a-merge-conflict-using-the-command-line)
 
 ## Fix detached HEAD 
 
@@ -56,22 +78,22 @@ git add file1
 git commit -m 'commit 2'
 ```
 
-### Fix by merging the current status with master
+### Fix by merging the current status with main
 
 1. Create a new branch that will contain the current status of the files
 ```
 git checkout -b detached-head
 ```
-2. Switch to the master branch and merge it with the changes in the detached HEAD
+2. Switch to the main branch and merge it with the changes in the detached HEAD
 ```
-git checkout master
+git checkout main
 git merge detached-head
 ```
 3. Resolve the conflicts and commit the merge
 
-### Fix by turning the current status into the master branch - might lose the commit history
+### Fix by turning the current status into the main branch - might lose the commit history
 
-This approach will potentially discard part of the commit history, but it is easier in case the merge of the old master branch and the current status is tricky, or you simply do not mind losing part of the commit history.
+This approach will potentially discard part of the commit history, but it is easier in case the merge of the old main branch and the current status is tricky, or you simply do not mind losing part of the commit history.
 
 1. Manually back up the repository, in case things go unexpectedly wrong.
 2. Commit the last changes you would like to keep. 
@@ -79,20 +101,25 @@ This approach will potentially discard part of the commit history, but it is eas
 ```
 git checkout -b detached-head
 ```
-4. (a) Delete the master branch if you do not need to keep it
+4. (a) Delete the main branch if you do not need to keep it
 ```
-git branch -D master
+git branch -D main
 ```
 4. (b) OR rename if you want to keep it
 ```
-git branch -M master old-master
+git branch -M main old-main
 ```
-5. Rename the temporary branch as the new master branch
+5. Rename the temporary branch as the new main branch
 ```
-git branch -M detached-head master
+git branch -M detached-head main
 ```
 
 Credit: adapted from [this Medium article](https://medium.com/@garylai_34633/how-to-fix-detached-head-in-git-5b518574c11a) by Gary Lai.
+
+### References
+
+* [My answer on StackOverFlow](https://stackoverflow.com/a/64123943/6194082)
+
 
 ## Push new branch without history to new repository
 
@@ -111,9 +138,114 @@ git remote add public-remote https://github.com/user/new-repo.git
 git push public-remote public
 ```
 
+## Syncing a fork
+
+* See: [Syncing a fork from the command line](https://docs.github.com/en/github/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-from-the-command-line)
+
+To merge with branch `main`:
+
+```
+git fetch upstream
+git checkout main
+git merge upstream/main
+```
+
 ### References
 * [`git remote` documentation](https://git-scm.com/docs/git-remote)
 * [`git push` documentation](https://git-scm.com/docs/git-push)
 * [Stack Overflow](https://stackoverflow.com/questions/12543055/how-to-push-new-branch-without-history)
 * [Stack Overflow](https://stackoverflow.com/questions/5181845/git-push-existing-repo-to-a-new-and-different-remote-repo-server)
 
+## Reviewing a Pull Request
+
+### Review and edit locally
+
+1. Move into the local clone of the repository
+2. Add a remote for the PR author’s repo: 
+```
+git remote add <author-id> git://github.com/<author-id>/<repo-name>.git
+```
+3. Fetch the PR: 
+```
+git fetch <author-id> <name-of-the-PR-branch>
+```
+4. Checkout that branch: 
+```
+://s3-us-west-2.amazonaws.com/clarivate-scholarone-prod-us-west-2-s1m-public/wwwRoot/prod1/societyimages/tmi-ieee/tmi-cover3-2226650-x.pdf
+git checkout <name-of-the-PR-branch>
+```
+
+## Renaming local and remote branch
+
+1. Rename local branch
+```
+git branch -m old-name new-name
+```
+
+2. Push local branch by explicitly setting the upstream branch
+```
+git push --set-upstream origin new-name
+```
+
+3. Delete old remote branch
+```
+git push origin --delete old-name
+```
+
+Note that if old-name is the default branch in the remote repository the deletion will be rejected:
+```
+ ! [remote rejected] old-name (refusing to delete the current branch: refs/heads/old-name)
+error: failed to push some refs to ...
+```
+
+You first have to change the default. On GitHub: Settings > Branches > Default branch
+
+### References
+
+- [StackOverflow: git: how to rename a branch (both local and remote)?](https://stackoverflow.com/questions/30590083/git-how-to-rename-a-branch-both-local-and-remote)
+
+## Forking your own repository
+
+Forking your own repository is not an operation that GitHub offers, but it is one I find myself needing very often. It has to be done manually:
+
+1. Create the new repository on GitHub. Let's assume it is called `new-repo`
+
+2. Clone the original repository (let's assumme it is called `orig-repo`) locally with the name of the new repository and change directory into the local copy:
+```
+git clone git@github.com:username/orig-repo.git
+cd new-repo
+```
+
+You can check that currently the remote repository associated to the local copy is the original repository with `git remote -v`. It should return something like
+```
+origin  git@github.com:username/orig-repo.git (fetch)
+origin  git@github.com:username/orig-repo.git (push)
+```
+
+3. Rename the name of the remote repository from `origin` to `upstream` (for example), since we want to reserve the name `origin` for the new repository
+```
+git remote rename origin upstream
+```
+
+4. Add a new remote repository called `origin` pointing to the new repository
+```
+git remote add origin git@github.com:username/new-repo.git
+```
+
+You can check that the new remote repository has been added with `git remote -v`:
+```
+origin  git@github.com:username/new-repo.git (fetch)
+origin  git@github.com:username/new-repo.git (push)
+upstream  git@github.com:username/orig-repo.git (fetch)
+upstream  git@github.com:username/orig-repo.git (push)
+```
+
+5. Push to the new repository. You push just the main branch (`git push origin main`)  or everything (`git push --all`) or something else.
+
+### References
+* [Forking your own repository](https://stackoverflow.com/questions/10963878/how-do-you-fork-your-own-repository-on-github)
+
+### References
+* [Working with Pull Requests as a reviewer](https://web-platform-tests.org/reviewing-tests/git.html)
+* [Forking your own repository](https://stackoverflow.com/questions/10963878/how-do-you-fork-your-own-repository-on-github)
+* [learn git branching](https://learngitbranching.js.org/)
