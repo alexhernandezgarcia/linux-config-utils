@@ -175,6 +175,88 @@ git fetch <author-id> <name-of-the-PR-branch>
 git checkout <name-of-the-PR-branch>
 ```
 
+## Working with multiple remote repositories
+
+Here is a basic guide about how to work with multiple repositories. Let's assume our default remote repository is called "origin" (Git's default) and lives in `https://github.com/username/origrepo`. Then, there is another related repository (typically a fork of the original one) that lives in `https://github.com/username/forkedrepo`. Let's called the forked repository "forked".
+
+### Listing the remote repositories
+
+First, you can list the current remote repositories with:
+
+```bash
+git remote -v
+```
+
+If you have not made any changes to the default configuration, you will likely get something like:
+
+```bash
+origin  git@github.com:username/origrepo.git (fetch)
+origin  git@github.com:username/origrepo.git (push)
+```
+
+### Adding a new remote repository
+
+Now, it may be useful to add to the list of remote repositories the "forked" repository. If we want to call it `forked`, we can use this command:
+
+```bash
+git remote add forked git@github.com:username/forkedrepo.git
+```
+
+The updated list shown by `git remote -v` should now be:
+
+```
+origin  git@github.com:username/origrepo.git (fetch)
+origin  git@github.com:username/origrepo.git (push)
+forked  git@github.com:username/forkedrepo.git (fetch)
+forked  git@github.com:username/forkedrepo.git (push)
+```
+
+### Renaming a remote repository
+
+Sometimes it can be helpful to rename a remote repository. For illustration purposes, let's rename `origin` to `original`. The command is `git remote rename <old-name> <new-name>`. So after running `git remote rename origin original`, `git remote -v` should return:
+
+```bash
+original     git@github.com:username/origrepo.git (fetch)
+original     git@github.com:username/origrepo.git (push)
+forked  git@github.com:username/forkedrepo.git (fetch)
+forked  git@github.com:username/forkedrepo.git (push)
+```
+
+### Merging a branch from the forked repository
+
+A common action we may want to often do is fetching changes in the forked repository, for instance after a PR is merged into its `main` branch. These are some steps we can follow, assuming we have added the forked repository to the list of remotes (see above).
+
+1. Fetch the branch from the forked repository that we are interested in. For instance, `main`:
+
+```bash
+git fetch forked main
+```
+
+2. Create a new branch for the new changes. For instance, `main-forked`:
+
+```bash
+git checkout -b main-forked
+```
+
+Note that the order of the first two steps above does not matter.
+
+3. Merge the main branch of the forked repository into the new branch:
+
+```bash
+git merge forked/main main-forked
+```
+
+4. Push the changes to a new remote branch (for example, `main-forked`) on the original repository:
+
+```bash
+git push original main-forked
+```
+Finally, it is also possible to set the default upstream branch to the desired repository and branch. For example, to set it to the main branch of the forked repository:
+
+```bash
+git branch --set-upstream-to=forked/main
+```
+
 ## Renaming local and remote branch
 
 1. Rename local branch
