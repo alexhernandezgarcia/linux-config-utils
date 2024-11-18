@@ -286,9 +286,9 @@ You first have to change the default. On GitHub: Settings > Branches > Default b
 
 - [StackOverflow: git: how to rename a branch (both local and remote)?](https://stackoverflow.com/questions/30590083/git-how-to-rename-a-branch-both-local-and-remote)
 
-## Forking your own repository
+## _Forking_ your own repository
 
-Forking your own repository is not an operation that GitHub offers, but it is one I find myself needing very often. It has to be done manually:
+Forking your own repository is not an operation that GitHub offers, but it is one I find myself needing very often. While, to my knowledge, there is no way to exactly fork your own repo on GitHub (or even have more than one fork of any repo), it is possible to manually set up your local copies with multiple _remote_ repositories and obtain _some_ of the functionality of forks:
 
 1. Create the new repository on GitHub. Let's assume it is called `new-repo`
 
