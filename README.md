@@ -10,5 +10,6 @@ So far, I have uploaded documentation about:
 * [`Git`](./git.md): resources and how-to instructions about Git operations
 * [`jupyter`](./jupyter.md): instructions about how to install the extensions
 * [virtual environments](.virtual-environments.md) for Python: instructions about how to install `virtualenv` and `virtualenvwrapper` to start using virtual environments and the main commands
+* [`ffmpeg`](./ffmpeg.md): a few examples of video manipulation with `ffmpeg`
 * [How to...](./howto)
     * [How to change the keyboard layout?](./howto/change_keyboard_layout.md)
