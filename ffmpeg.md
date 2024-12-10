@@ -1,5 +1,29 @@
 # ffmpeg
 
+## Converting videos
+
+It is possible to easily convert media files with the default settings of `ffmpeg`. For example, all of the following commands should work _as expected_:
+
+```
+ffmpeg -i input.avi output.mp4
+ffmpeg -i input.mp4 output.avi
+ffmpeg -i input.mkv output.mp4
+ffmpeg -i input.mkv output.avi
+```
+
+However, it is also possible to select the specific codecs. For instance:
+
+```
+ffmpeg -i input.avi -c:v libx264 -crf 23 -c:a aac -b:a 192k output.mp4
+```
+
+In this case, the `-crf` flag indicates the Constant Rate Factor and the lower the value the higher the quality. Typical values are in between 18 and 28.
+
+### References
+
+- [A quick guide to using FFmpeg to convert media files, opensource.com](https://opensource.com/article/17/6/ffmpeg-convert-media-file-formats)
+- [What is -crf used for in FFmpeg?, superuser](https://superuser.com/questions/677576/what-is-crf-used-for-in-ffmpeg)
+
 ## Compress video
 
 ```
