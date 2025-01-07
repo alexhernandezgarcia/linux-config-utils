@@ -2,7 +2,7 @@
 
 Ubuntu and other Linux distributions come with a wide range of keyboard layout options, but there is chance you may want to change some details or even create an entirely new layout.
 
-I have little experience with this, but I will illustrate how this is possible with my own case: I have used an English UK keyboard layout for many years because I find it comfortable for programming and because it natively incorporates easy access to characters I need in other languages, such as `á, é, ..., à, è, ..., ä, ö, ü, ..., ê, ô, ..., ñ, ...`. However, it does not perfectly fit my needs. In particular, I often write in French and I need to type the c-cedilla `ç` and `Ç`. I thought it would be convenient for me to map the key combinations `AltGr + C` and `AltGr + Shift + C` to `ç` and `Ç`, respectively.
+I have little experience with this, but I will illustrate how this is possible with my own case: I have used an English UK keyboard layout for many years because I find it comfortable for programming and because it natively incorporates easy access to characters I need in other languages, such as `á, é, ..., à, è, ..., ä, ö, ü, ..., ê, ô, ..., ñ, ...`. However, it does not perfectly fit my needs. In particular, I often write in French and I need to type the c-cedilla `ç` and `Ç` and the oethel œ. I thought it would be convenient for me to map the key combinations `AltGr + C` and `AltGr + Shift + C` to `ç` and `Ç`, respectively, and `AltGr + e` and `AltGr + E` to `œ` and `Œ`, respectively (I map the oethel to the `E` key because it is vacant with AltGr in the English layout, unlike the `O` key.
 
 ## Basic notions
 
@@ -16,7 +16,7 @@ Finally, another relevant file is `/usr/share/X11/xkb/rules/evdev.xml`, which li
 
 Changing an existing layout is the first of the options we cover in this guide. The other alternative is [creating a new variant](#creating-a-new-layout-variant).
 
-Changing an existing layout variant is relatively straightforward. Taking the aforementioned use case, suppose we are using the default English UK layout (default variant) and we want to map the key combinations `AltGr + C` and `AltGr + Shift + C` to `ç` and `Ç`, respectively.
+Changing an existing layout variant is relatively straightforward. Taking the aforementioned use case, suppose we are using the default English UK layout (default variant) and we want to map the key combinations `AltGr + C` and `AltGr + Shift + C` to `ç` and `Ç`, respectively, and `AltGr + e` and `AltGr + E` to `œ` and `Œ`, respectively.
 
 Since we want to modify the layout for English UK, we need to update the file `/usr/share/X11/xkb/symbols/gb`. Before modifying the file, consider creating a backup copy.
 
@@ -56,12 +56,18 @@ The key identifier for alphanumeric keys starts with `A`. The second character i
 Thus, the key corresponding to `C` in the layout is identified by `AB03` and the line we need to add to the list of mappings is 
 
 ```
-key <AB03> { [   c,                 C,        ccedilla,    Ccedilla ] };
+key <AB03> { [   c,                 C,        ccedilla,    Ccedilla ] }; // c C ç Ç
 ```
 
-At the time of writing, I do not know where to find the list of names, such as `ccedilla` and `Ccedilla` associated to each symbol, but many can be inferred from the files in `/usr/share/X11/xkb/symbols/`.
+For the oethel character, we modify the key corresponding to `E`, which is `AD03`:
 
-After adding the new line to the file and saving the changes, we need to restart our X session (logout) in order to see the changes.
+```
+key <AD03> { [   e,                 E,              oe,          OE ] }; // e E œ Œ
+```
+
+At the time of writing, I do not know where to find the list of names, such as `ccedilla`, `Ccedilla`, `oe` and `OE` associated to each symbol, but many can be inferred from the files in `/usr/share/X11/xkb/symbols/`.
+
+After adding the new lines to the file and saving the changes, we need to restart our X session (logout) in order to see the changes.
 
 
 ## Creating a new layout variant
@@ -81,7 +87,8 @@ xkb_symbols "uk_multilang" {
 
     name[Group1]="English (UK, multilingual)";
 
-    key <AB03> { [   c,                 C,        ccedilla,    Ccedilla ] };
+    key <AB03> { [   c,                 C,        ccedilla,    Ccedilla ] }; // c C ç Ç
+    key <AD03> { [   e,                 E,              oe,          OE ] }; // e E œ Œ
 };
 ```
 
