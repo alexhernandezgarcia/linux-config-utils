@@ -1,6 +1,6 @@
 # How to fix full storage crisis on my Fairphone
 
-At least three times since I have my Fairphone, I have got into a crisis in which the phone does not start up normally because the storage is full. Specifically, what happens is that first the phone crashes and goes off or reboots itself. When I attempt to turn it on again, it displays a message saying "Can't create log file" (or the like). Then, it goes off again and enters recovery mode.
+At least four times since I have my Fairphone, I have got into a crisis in which the phone does not start up normally because the storage is full. Specifically, what happens is that first the phone crashes and goes off or reboots itself. When I attempt to turn it on again, it displays a message saying "Can't create log file" (or the like). Then, it goes off again and enters recovery mode.
 
 The way I have found to fix this problem is by using [Android Debug Bridge (adb)](https://developer.android.com/tools/adb) to access the filesystem of the phone from a computer and find a large file (typically a video) that I can mostly safely remove.
 
@@ -10,7 +10,7 @@ The steps are as follows:
 
 2. Connect the phone to a computer with a USB cable.
 
-3. With the phone showing the recovery screen, navigate to _Adavanced_, then _Enable ADB_.
+3. With the phone showing the recovery screen, navigate to _Advanced_, then _Enable ADB_.
 
 4. Check that adb is detecting the phone with `./adb devices`
 
