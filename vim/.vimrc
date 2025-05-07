@@ -15,7 +15,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " YouCompleteMe
-" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'ycm-core/YouCompleteMe'
 
 " Surround
 Plugin 'tpope/vim-surround'
@@ -268,6 +268,12 @@ au BufRead,BufNewFile *.tex vnoremap <silent> '# :s/^% //<cr>:noh<cr>
 " Python: set idbp breakpoint line in register i
 " See: https://blog.afoolishmanifesto.com/posts/editing-registers-in-vim-regedit
 :let @i='import ipdb; ipdb.set_trace()'
+
+" Python: set Parameters\n----------\n in register p
+:let @p="Parameters\n----------\n"
+
+" Python: set Returns\n-------\n in register r
+:let @r="Returns\n-------\n"
 
 " Folding
 set foldmethod=indent
