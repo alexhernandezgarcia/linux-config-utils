@@ -45,7 +45,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_python_pylint_post_args="--max-line-length=88"
+let g:pymode_lint_ignore = "E501,W"
+" Toggle with Ctrl-W E
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticCheck<CR>
 
 " Air-line
 Plugin 'vim-airline/vim-airline'
@@ -268,6 +272,12 @@ au BufRead,BufNewFile *.tex vnoremap <silent> '# :s/^% //<cr>:noh<cr>
 " Python: set idbp breakpoint line in register i
 " See: https://blog.afoolishmanifesto.com/posts/editing-registers-in-vim-regedit
 :let @i='import ipdb; ipdb.set_trace()'
+
+" Python: set Parameters\n----------\n in register p
+:let @p="Parameters\n----------\n"
+
+" Python: set Returns\n-------\n in register r
+:let @r="Returns\n-------\n"
 
 " Folding
 set foldmethod=indent
