@@ -8,10 +8,10 @@ alias lss="ls -lh -I '*.pyc' -I '*.sw*' --group-directories-first"
 alias lst="ls -lh -I '*.aux' -I '*.bbl' -I '*.blg' -I '*.fdb_latexmk' -I '*.fls' -I '*.log' -I '*.out' -I '*.thm' -I '*.synctex.gz' --group-directories-first"
 
 # Alias for "git status ."
-alias gits="git status ."
+alias gitsa="git status ."
 
 # Alias for "git status -uno ." (ignore untracked files)
-alias gitsuno="git status -uno ."
+alias gits="git status -uno ."
 
 # Alias for "git add -u ."
 alias gitu="git add -u ."
@@ -28,6 +28,13 @@ alias gitls="git ls-tree -r master --name-only"
 # Alias for "git log --all --decorate --oneline --graph"
 # See: https://i.stack.imgur.com/ElVkf.jpg
 alias gitlogadog="git log --all --decorate --oneline --graph"
+
+# Alias for "git log --all --decorate --oneline --graph"
+# See: https://stackoverflow.com/a/41628915/6194082
+alias gitloggraph="git log --pretty=format:'%h : %s' --graph"
+
+# Alias to get summary information about current branch
+alias gitb="git status | grep branch"
 
 # Alias for copying into clipboard (xclip)
 # See: https://stackoverflow.com/a/5130969/6194082
@@ -99,7 +106,8 @@ weather ()
 }
 
 # Get info about SLURM job
-sshow (){
+sshow ()
+{
     scontrol show job -dd $1
 }
 
