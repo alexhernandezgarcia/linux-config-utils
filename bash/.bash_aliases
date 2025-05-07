@@ -30,7 +30,9 @@ alias gitls="git ls-tree -r master --name-only"
 alias gitlogadog="git log --all --decorate --oneline --graph"
 
 # Alias for copying into clipboard (xclip)
-alias c="xclip"
+# See: https://stackoverflow.com/a/5130969/6194082
+alias xc="xclip"
+alias c="xclip -selection clipboard"
 
 # Alias for pasting from clipboard (xclip -o)
 alias v="xclip -o"
@@ -125,11 +127,18 @@ cropnborder() {
     convert $1 -bordercolor White -border $2x$2 $1
 }
 
-# PDF to PNG
+# PDF to PNG using pdftoppm (old)
+# $1: input pdf
+# $2: DPI
+# pdf2png() {
+#     pdftoppm -png -r $2 $1 .tmp-pdf2png
+#     mv .tmp-pdf2png-1.png $(basename $1 .pdf).png
+# }
+
+# PDF to PNG using convert from ImageMagick
 # $1: input pdf
 # $2: DPI
 pdf2png() {
-    pdftoppm -png -r $2 $1 .tmp-pdf2png
-    mv .tmp-pdf2png-1.png $(basename $1 .pdf).png
+    convert -density $2 $1 .tmp-pdf2png.png
+    mv .tmp-pdf2png.png $(basename $1 .pdf).png
 }
-
