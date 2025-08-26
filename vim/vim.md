@@ -1,4 +1,6 @@
-# How to install `Vundle`
+Vim configuration is defined in the file `~/.vimrc`. To use the configuration file in this repo, simply copy it or its content to your home `~/.vimrc`.
+
+## How to install `Vundle`
 
 [`Vundle.vim`](https://github.com/VundleVim/Vundle.vim) is a plug-in manager for `vim`
 
