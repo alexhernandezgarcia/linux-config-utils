@@ -127,6 +127,12 @@ vactivate()
 	fi
 }
 
+# Crop image
+# $1: input image and output image (will overwrite)
+crop() {
+    convert -trim $1 $1
+}
+
 # Crop image and add border
 # $1: input image and output image (will overwrite)
 # $2: border size in pixels
