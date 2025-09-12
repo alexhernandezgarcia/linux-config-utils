@@ -72,17 +72,16 @@ rsync -aZ source/dir/ shared/target/dir/
 
 ### Explanation
 
-Running rsync with the `-Z` flag causes rsync to use the alias (options) defined in the `~/.popt` file. The options defined in the alias are the following:
+The content in `~/.popt` creates an alias for the flag `-Z` with the desired options to simplify their inclusion. The options defined in the alias are the following:
 
 - `--no-p`: disables the `--perms` or `-p` option, which "causes the receiving rsync to set the destination permissions to be the same as the source permissions", and is included in `-a`.
 - `--no-g`: disables the `--group` or `-g` option, which "causes rsync to set the group of the destination file to be the same as the source file", and is included in `-a`.
 - `--chmod=Dg+s`: applies the `chmod` options specified after the `=` to the permission of the files in the transfer. `Dg+s` will make directories (`D`) inherit the setgid bit (set group ID), to enable group inheritance.
 
-Without `g+s`, directories created by a user in a shared directory will inherit the primary group of the user, instead of the group of the parent directory.
+Without `g+s`, directories created by a user in a shared directory will inherit the GID of the creating process, which in most cases is the primary group of the command-initiating user, instead of the group of the target parent directory, which may the desired option in a shared directory.
 
 In case rsync is run to transfer files or directories to a target directory without the above options, one may see (with `ls -la`) that the setgid bit is `x` (instead of `s`) in the group execute position. This may cause quota issues, for instance. This can be changed with `chmod g+s` followed by the file or directory to be updated.
 
 ## References
 
 - [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps)
-
