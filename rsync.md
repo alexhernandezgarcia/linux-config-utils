@@ -52,7 +52,7 @@ To exclude a directory:
 rsync -a --exclude 'edir' source/ target
 ```
 
-## Preserving group ownership in taget directory
+## Preserving group ownership in target directory
 
 Running rsync with the `-a` flag will preserve the source group and owner alongside other properties. While this is fine in many cases, in can be problematic when the target directory is a shared directory. In particular, this has caused hitting the user quota in a shared directory where the group has a large quota but individual users do not.
 
