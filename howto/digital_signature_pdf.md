@@ -24,6 +24,10 @@ certutil -L -d ~/.pki/nssdb
 ## Update a certificate
 
 To simply issue a new self-signed certificate to replace an expired one:
+
+1. IMPORTANT: Delete or move the old *.db files.
+
+2. Run the following command:
 ```
 certutil -S -d ~/.pki/nssdb -s "CN=<Full Name>;OU=<Machine name>;O=<Machine name>;L=<City>;ST=<State>;C=<Country code, e.g. CA>" -t ",,C,C" -n "<Machine name> NSS certutil certificate" -x
 ```
